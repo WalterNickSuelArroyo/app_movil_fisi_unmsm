@@ -1,6 +1,8 @@
+import 'package:app_movil_fisi_unmsm/providers/login_form_provider.dart';
 import 'package:app_movil_fisi_unmsm/ui/input_decoration.dart';
 import 'package:flutter/material.dart';
 import 'package:app_movil_fisi_unmsm/widgets/widgets.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatelessWidget {
    
@@ -20,7 +22,10 @@ class LoginScreen extends StatelessWidget {
                     const SizedBox(height: 10),
                     Text('Login', style: Theme.of(context).textTheme.headlineMedium),
                     const SizedBox(height: 30),
-                    _LoginForm(),
+                    ChangeNotifierProvider(
+                      create: ( _ ) => LoginFormProvider(),
+                      child: _LoginForm()
+                    )
                   ],
                 )
               ),
@@ -37,9 +42,12 @@ class LoginScreen extends StatelessWidget {
 class _LoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final loginForm = Provider.of<LoginFormProvider>(context);
     return Form(
+      key: loginForm.formKey,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Column(
+
         children: [
           TextFormField(
             autocorrect: false,
@@ -49,6 +57,7 @@ class _LoginForm extends StatelessWidget {
               labelText: 'Correo institucional',
               prefixIcon: Icons.alternate_email_rounded
             ),
+            onChanged: (value) => loginForm.email = value,
             validator: (value) {
               String pattern = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
               RegExp regExp  = RegExp(pattern);
@@ -63,10 +72,11 @@ class _LoginForm extends StatelessWidget {
             obscureText: true,
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecorations.authInputDecoration(
-              hintText: '*******',
+              hintText: '*********',
               labelText: 'Contraseña',
               prefixIcon: Icons.lock_outline
             ),
+            onChanged: (value) => loginForm.password = value,
             validator: (value) {
               return (value != null && value.length >= 6)
                 ? null
@@ -79,16 +89,23 @@ class _LoginForm extends StatelessWidget {
             disabledColor: Colors.grey,
             elevation: 0,
             color: Colors.deepPurple,
+            onPressed: loginForm.isLoading ? null : () async {
+              FocusScope.of(context).unfocus();
+              if (!loginForm.isValidForm()) return;
+              loginForm.isLoading = true;
+              await Future.delayed(const Duration(seconds: 2));
+              loginForm.isLoading = false;
+              Navigator.pushReplacementNamed(context, 'home');
+            },
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 15),
-              child: const Text(
-                'Ingresar',
-                style: TextStyle(color: Colors.white),
+              child: Text(
+                loginForm.isLoading
+                  ? 'Espere'
+                  : 'Ingresar',
+                style: const TextStyle(color: Colors.white),
               ),
-            ),
-            onPressed: () {
-              
-            },)
+            ),)
         ],
       ));
   }
