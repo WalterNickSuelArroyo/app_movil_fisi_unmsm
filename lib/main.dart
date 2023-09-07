@@ -31,7 +31,7 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: '/', page: () => LoginPage(),),
         GetPage(name: '/pabellon', page: () => const PabellonPage(),),
         GetPage(name: '/piso', page: () => const PisoPage(),),
-        GetPage(name: '/asignacionaula', page: () => const AsignacionAulaPage(),)
+        GetPage(name: '/asignacionaula', page: () => AsignacionAulaPage(),)
       ],
       theme: ThemeData(
         primaryColor: const Color.fromRGBO(252, 147, 64, 1),
