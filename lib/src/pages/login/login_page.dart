@@ -1,9 +1,15 @@
+import 'package:app_movil_fisi_unmsm/src/pages/login/login_controller.dart';
+import 'package:app_movil_fisi_unmsm/src/pages/pabellon/pabellon_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+// ignore: must_be_immutable
 class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+  LoginController con = Get.put(LoginController());
+
+  LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +23,7 @@ class LoginPage extends StatelessWidget {
             _iniciarSesion(),
             _textFieldEmail(),
             _textFieldPassword(),
-            _buttonLogin(),
+            _buttonLogin(context),
           ],
         ),
       )
@@ -86,12 +92,15 @@ class LoginPage extends StatelessWidget {
       ),
     );
   }
-  Widget _buttonLogin() {
+  Widget _buttonLogin(BuildContext context) {
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 35),
       child: ElevatedButton(
         onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return PabellonPage();
+          }));
         }, 
         style: ElevatedButton.styleFrom(
             padding:const EdgeInsets.symmetric(vertical: 20) ,
@@ -99,12 +108,15 @@ class LoginPage extends StatelessWidget {
               borderRadius: BorderRadius.circular(18)
             )
           ),
-        child: const Text(
-          'Iniciar sesión',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.w600,
-            fontSize: 17
+        child: GestureDetector(
+          onTap: () => con.goToPabellonPage(),
+          child: const Text(
+            'Iniciar sesión',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w600,
+              fontSize: 17
+            ),
           ),
         )
       ),
