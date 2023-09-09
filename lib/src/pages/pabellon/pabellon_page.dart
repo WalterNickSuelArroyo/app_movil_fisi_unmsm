@@ -25,7 +25,7 @@ class PabellonPage extends StatelessWidget {
       child: Align(
         alignment: Alignment.center,
         child: Text(
-          'Seleccione\n  pabellón',
+          ' Seleccione\n  su pabellón',
           style: GoogleFonts.poppins(
             fontSize: 38,
             color: const Color.fromRGBO(16, 54, 95, 1),
