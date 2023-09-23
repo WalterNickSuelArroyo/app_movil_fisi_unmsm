@@ -1,8 +1,10 @@
 import 'package:app_movil_fisi_unmsm/src/pages/asignacionAula/asignacionAula_page.dart';
 import 'package:app_movil_fisi_unmsm/src/pages/login/login_page.dart';
 import 'package:app_movil_fisi_unmsm/src/pages/pabellon/pabellon_page.dart';
+import 'package:app_movil_fisi_unmsm/src/pages/perfil/editar_perfil.dart';
 import 'package:app_movil_fisi_unmsm/src/pages/piso/piso_page.dart';
 import 'package:app_movil_fisi_unmsm/src/pages/perfil/usuario_perfil.dart';
+
 
 import 'package:flutter/material.dart';
 
@@ -33,6 +35,8 @@ class _MyAppState extends State<MyApp> {
       getPages: [
         GetPage(name: '/', page: () => LoginPage(),),
         GetPage(name : '/perfil',page : ()=>ProfileApp(),),
+        GetPage(name : '/editarperfil',page : ()=>EditProfileApp(),),
+
         GetPage(name: '/pabellon', page: () => const PabellonPage(),),
         GetPage(name: '/piso', page: () => const PisoPage(),),
         GetPage(name: '/asignacionaula', page: () => AsignacionAulaPage(),),
