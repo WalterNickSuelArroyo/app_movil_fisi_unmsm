@@ -90,10 +90,7 @@ class PabellonPage extends StatelessWidget {
           child: Text(
             'Nuevo',
             style: GoogleFonts.poppins(
-              fontSize: 38,
-              color:  Colors.white,
-              fontWeight: FontWeight.w600
-            ),
+                fontSize: 38, color: Colors.white, fontWeight: FontWeight.w600),
           ),
         ),
       ),

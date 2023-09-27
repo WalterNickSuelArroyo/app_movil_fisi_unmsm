@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:app_movil_fisi_unmsm/src/pages/asignacionAula/asignacionAula_page.dart';
+import 'package:app_movil_fisi_unmsm/src/pages/horario/horario.dart';
 
 class v_a extends StatelessWidget {
   @override
@@ -29,7 +30,13 @@ class v_a extends StatelessWidget {
                   child: const Text('Reservar horario')),
               const SizedBox(height: 16),
               ElevatedButton(
-                  onPressed: () {}, child: const Text('Ver cursos del aula')),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ScheduleScreen()));
+                  },
+                  child: const Text('Ver cursos del aula')),
             ],
           ),
         ),
