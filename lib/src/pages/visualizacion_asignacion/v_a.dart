@@ -1,6 +1,7 @@
+import 'package:app_movil_fisi_unmsm/src/pages/horario/horario2.dart';
 import 'package:flutter/material.dart';
 import 'package:app_movil_fisi_unmsm/src/pages/asignacionAula/asignacionAula_page.dart';
-import 'package:app_movil_fisi_unmsm/src/pages/horario/horario.dart';
+//import 'package:app_movil_fisi_unmsm/src/pages/horario/horario.dart';
 
 class v_a extends StatelessWidget {
   @override
