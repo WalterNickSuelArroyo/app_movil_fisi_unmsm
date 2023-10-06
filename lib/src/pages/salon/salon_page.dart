@@ -9,18 +9,24 @@ class SalonPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+            leading: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: const Icon(Icons.arrow_back))),
         body: SingleChildScrollView(
-      child: Column(
-        children: [
-          _textoPiso(context),
-          _filaPrimera(context),
-          _filaSegunda(context),
-          _filaTercera(context),
-          _filaCuarta(context),
-          _filaQuinta(context),
-        ],
-      ),
-    ));
+          child: Column(
+            children: [
+              _textoPiso(context),
+              _filaPrimera(context),
+              _filaSegunda(context),
+              _filaTercera(context),
+              _filaCuarta(context),
+              _filaQuinta(context),
+            ],
+          ),
+        ));
   }
 
   Widget _textoPiso(BuildContext context) {

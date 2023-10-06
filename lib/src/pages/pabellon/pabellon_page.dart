@@ -8,17 +8,23 @@ class PabellonPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            _textoPabellon(context),
-            _textoAntiguo(context),
-            _textoNuevo(context)
-          ],
-        ),
-      )
-    );
+        appBar: AppBar(
+            leading: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: const Icon(Icons.arrow_back))),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              _textoPabellon(context),
+              _textoAntiguo(context),
+              _textoNuevo(context)
+            ],
+          ),
+        ));
   }
+
   Widget _textoPabellon(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(top: 50),
@@ -27,23 +33,22 @@ class PabellonPage extends StatelessWidget {
         child: Text(
           'Seleccione\n  pabellón',
           style: GoogleFonts.poppins(
-            fontSize: 38,
-            color: const Color.fromRGBO(16, 54, 95, 1),
-            fontWeight: FontWeight.w600
-          ),
+              fontSize: 38,
+              color: const Color.fromRGBO(16, 54, 95, 1),
+              fontWeight: FontWeight.w600),
         ),
       ),
     );
   }
+
   Widget _textoAntiguo(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-          context, 
-          MaterialPageRoute(builder: (context) {
+        Navigator.push(context, MaterialPageRoute(
+          builder: (context) {
             return PisoPage();
-          },)
-        );
+          },
+        ));
       },
       child: Container(
         width: MediaQuery.of(context).size.width * 0.55,
@@ -58,24 +63,21 @@ class PabellonPage extends StatelessWidget {
           child: Text(
             'Antiguo',
             style: GoogleFonts.poppins(
-              fontSize: 38,
-              color:  Colors.white,
-              fontWeight: FontWeight.w600
-            ),
+                fontSize: 38, color: Colors.white, fontWeight: FontWeight.w600),
           ),
         ),
       ),
     );
   }
+
   Widget _textoNuevo(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-          context, 
-          MaterialPageRoute(builder: (context) {
+        Navigator.push(context, MaterialPageRoute(
+          builder: (context) {
             return PisoPage();
-          },)
-        );
+          },
+        ));
       },
       child: Container(
         width: MediaQuery.of(context).size.width * 0.55,

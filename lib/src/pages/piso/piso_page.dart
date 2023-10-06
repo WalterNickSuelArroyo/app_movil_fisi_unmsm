@@ -8,18 +8,24 @@ class PisoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            _textoPiso(context),
-            _textoPiso1(context),
-            _textoPiso2(context),
-            _textoPiso3(context)
-          ],
-        ),
-      )
-    );
+        appBar: AppBar(
+            leading: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: const Icon(Icons.arrow_back))),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              _textoPiso(context),
+              _textoPiso1(context),
+              _textoPiso2(context),
+              _textoPiso3(context)
+            ],
+          ),
+        ));
   }
+
   Widget _textoPiso(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(top: 50),
@@ -28,23 +34,22 @@ class PisoPage extends StatelessWidget {
         child: Text(
           'Seleccione\n        piso',
           style: GoogleFonts.poppins(
-            fontSize: 38,
-            color: const Color.fromRGBO(16, 54, 95, 1),
-            fontWeight: FontWeight.w600
-          ),
+              fontSize: 38,
+              color: const Color.fromRGBO(16, 54, 95, 1),
+              fontWeight: FontWeight.w600),
         ),
       ),
     );
   }
+
   Widget _textoPiso1(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-          context, 
-          MaterialPageRoute(builder: (context) {
+        Navigator.push(context, MaterialPageRoute(
+          builder: (context) {
             return SalonPage();
-          },)
-        );
+          },
+        ));
       },
       child: Container(
         width: MediaQuery.of(context).size.width * 0.55,
@@ -59,24 +64,21 @@ class PisoPage extends StatelessWidget {
           child: Text(
             '1',
             style: GoogleFonts.poppins(
-              fontSize: 38,
-              color:  Colors.white,
-              fontWeight: FontWeight.w600
-            ),
+                fontSize: 38, color: Colors.white, fontWeight: FontWeight.w600),
           ),
         ),
       ),
     );
   }
+
   Widget _textoPiso2(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-          context, 
-          MaterialPageRoute(builder: (context) {
+        Navigator.push(context, MaterialPageRoute(
+          builder: (context) {
             return SalonPage();
-          },)
-        );
+          },
+        ));
       },
       child: Container(
         width: MediaQuery.of(context).size.width * 0.55,
@@ -91,24 +93,21 @@ class PisoPage extends StatelessWidget {
           child: Text(
             '2',
             style: GoogleFonts.poppins(
-              fontSize: 38,
-              color:  Colors.white,
-              fontWeight: FontWeight.w600
-            ),
+                fontSize: 38, color: Colors.white, fontWeight: FontWeight.w600),
           ),
         ),
       ),
     );
   }
+
   Widget _textoPiso3(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-          context, 
-          MaterialPageRoute(builder: (context) {
+        Navigator.push(context, MaterialPageRoute(
+          builder: (context) {
             return SalonPage();
-          },)
-        );
+          },
+        ));
       },
       child: Container(
         width: MediaQuery.of(context).size.width * 0.55,
@@ -123,10 +122,7 @@ class PisoPage extends StatelessWidget {
           child: Text(
             '3',
             style: GoogleFonts.poppins(
-              fontSize: 38,
-              color:  Colors.white,
-              fontWeight: FontWeight.w600
-            ),
+                fontSize: 38, color: Colors.white, fontWeight: FontWeight.w600),
           ),
         ),
       ),
