@@ -24,6 +24,7 @@ class LoginPage extends StatelessWidget {
             _textFieldEmail(),
             _textFieldPassword(),
             _buttonLogin(context),
+            _textNoTienesCuenta()
           ],
         ),
       )
@@ -44,7 +45,7 @@ class LoginPage extends StatelessWidget {
     return Container(
       alignment: Alignment.center,
       child: Text(
-        'FISIhelp',
+        'AulaFinder',
         style: GoogleFonts.montserrat(
           color: const Color.fromRGBO(16, 54, 95, 1),
           fontSize: 45,
@@ -120,6 +121,32 @@ class LoginPage extends StatelessWidget {
           ),
         )
       ),
+    );
+  }
+  Widget _textNoTienesCuenta() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Text(
+          '¿No tienes cuenta?',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 17
+          ),
+          ),
+        const SizedBox(width: 10,),
+        GestureDetector(
+          onTap: () => con.goToRegisterPage(),
+          child: const Text(
+            'Registrate aqui',
+            style: TextStyle(
+              color: Colors.amber,
+              fontWeight: FontWeight.bold,
+              fontSize: 17
+            ),
+            ),
+        ),
+      ],
     );
   }
 

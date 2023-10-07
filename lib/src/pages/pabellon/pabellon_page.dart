@@ -2,9 +2,15 @@ import 'package:app_movil_fisi_unmsm/src/pages/piso/piso_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class PabellonPage extends StatelessWidget {
+class PabellonPage extends StatefulWidget {
   const PabellonPage({super.key});
 
+  @override
+  State<PabellonPage> createState() => _PabellonPageState();
+}
+
+class _PabellonPageState extends State<PabellonPage> {
+  int selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,9 +22,41 @@ class PabellonPage extends StatelessWidget {
             _textoNuevo(context)
           ],
         ),
-      )
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.shifting,
+        currentIndex: selectedIndex,
+        onTap: (value) {
+          setState(() {
+            selectedIndex = value;
+          });
+        },
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_outlined, color: Colors.white,),
+            activeIcon: Icon(Icons.home, color: Colors.white, size: 35,),
+            label: 'Inicio',
+            backgroundColor: Color.fromRGBO(224, 144, 11, 1),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search,color: Colors.white,),
+            activeIcon: Icon(Icons.search, color: Colors.white, size: 35,),
+            label: 'Buscar',
+            backgroundColor: Color.fromRGBO(224, 144, 11, 1),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.work_outline,color: Colors.white,),
+            activeIcon: Icon(Icons.work, color: Colors.white, size: 35,),
+            label: 'Tareas',
+            backgroundColor: Color.fromRGBO(224, 144, 11, 1),
+          )
+        ],
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.white,
+      ),
     );
   }
+
   Widget _textoPabellon(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(top: 50),
@@ -35,6 +73,7 @@ class PabellonPage extends StatelessWidget {
       ),
     );
   }
+
   Widget _textoAntiguo(BuildContext context) {
     return GestureDetector(
       onTap: () {
@@ -67,6 +106,7 @@ class PabellonPage extends StatelessWidget {
       ),
     );
   }
+
   Widget _textoNuevo(BuildContext context) {
     return GestureDetector(
       onTap: () {
