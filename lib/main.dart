@@ -1,5 +1,6 @@
 import 'package:app_movil_fisi_unmsm/src/pages/asignacionAula/asignacionAula_page.dart';
 import 'package:app_movil_fisi_unmsm/src/pages/login/login_page.dart';
+import 'package:app_movil_fisi_unmsm/src/pages/nuevo_curso/nuevo_curso.dart';
 import 'package:app_movil_fisi_unmsm/src/pages/pabellon/pabellon_page.dart';
 import 'package:app_movil_fisi_unmsm/src/pages/piso/piso_page.dart';
 import 'package:flutter/material.dart';
@@ -26,12 +27,13 @@ class _MyAppState extends State<MyApp> {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Fisi Help',
-      initialRoute: '/',
+      initialRoute: '/nuevoCurso',
       getPages: [
         GetPage(name: '/', page: () => LoginPage(),),
         GetPage(name: '/pabellon', page: () => const PabellonPage(),),
         GetPage(name: '/piso', page: () => const PisoPage(),),
-        GetPage(name: '/asignacionaula', page: () => AsignacionAulaPage(),)
+        GetPage(name: '/asignacionaula', page: () => AsignacionAulaPage(),),
+        GetPage(name: '/nuevoCurso', page: ()=> const nuevoCurso(),),
       ],
       theme: ThemeData(
         primaryColor: const Color.fromRGBO(252, 147, 64, 1),
