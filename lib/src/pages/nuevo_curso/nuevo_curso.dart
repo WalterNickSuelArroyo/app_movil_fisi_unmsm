@@ -4,11 +4,18 @@ import 'package:google_fonts/google_fonts.dart';
 //import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+
 // ignore: camel_case_types
-class nuevoCurso extends StatelessWidget{
+class nuevoCurso extends StatefulWidget{
   const nuevoCurso({super.key});
 
-    
+  @override
+  _nuevoCursoState createState()=> _nuevoCursoState();
+}
+
+
+// ignore: camel_case_types
+class _nuevoCursoState extends State<nuevoCurso>{
     @override
     Widget build(BuildContext context){
         return Scaffold(
@@ -20,7 +27,7 @@ class nuevoCurso extends StatelessWidget{
                         _imagenTitulo(),
                         _titulo(),
                         _subtitulo(),
-                        _opcionEscuela(),
+                        _opcionEscuela()
                     ]
                 )
             )
@@ -69,37 +76,41 @@ Widget _subtitulo(){
 }
 
 Widget _opcionEscuela(){
+    
     return Container(
         margin: const EdgeInsets.only(top: 45),
         alignment: Alignment.center,
         child: Column(
             children: [
                 Row(
-                    children: [
-                        SvgPicture.asset('assets/img/carta.svg'),
-                        const SizedBox(height: 16.0),
-                        Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                                Text(
-                                    'Escuela',
-                                    style: GoogleFonts.montserrat(
-                                        color: const Color.fromRGBO(16, 54, 95, 1),
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.w500,
-                                    ),
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 16.0),
+                      child: SvgPicture.asset('assets/img/carta.svg'),
+                    ),
+                    Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                              'Escuela',
+                              style: GoogleFonts.montserrat(
+                                  color: const Color.fromRGBO(16, 54, 95, 1),
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w700,
                                 ),
-                                Text(
-                                    'Ingenieria de Software',
-                                    style: GoogleFonts.montserrat(
-                                        color: const Color.fromRGBO(77, 77, 77, 1),
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w100,
-                                    ),
-                                )
-                            ],
-                        )
-                    ],
+                              ),
+                          Text(
+                              'Ingenieria de Software',
+                               style: GoogleFonts.montserrat(
+                                  color: const Color.fromRGBO(77, 77, 77, 1),
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w300,
+                                ),
+                              )
+                        ],
+                      ),
+                  ],
                 )
             ]
         ),
