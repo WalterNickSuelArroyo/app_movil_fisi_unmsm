@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:app_movil_fisi_unmsm/src/models/response_api.dart';
 import 'package:app_movil_fisi_unmsm/src/models/user.dart';
+import 'package:app_movil_fisi_unmsm/src/pages/alumno/profile/info/alumno_profile_info_controller.dart';
 import 'package:app_movil_fisi_unmsm/src/providers/users_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,42 +11,72 @@ import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sn_progress_dialog/progress_dialog.dart';
 
-class RegisterController extends GetxController {
-  TextEditingController emailController = TextEditingController();
+class AlumnoProfileUpdaterController extends GetxController {
+
+  User user = User.fromJson(GetStorage().read('user'));
+
   TextEditingController nameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController confirmPasswordController = TextEditingController();
-
-  UsersProvider usersProvider = UsersProvider();
 
   ImagePicker picker = ImagePicker();
   File? imageFile;
 
-  void register(BuildContext context) async{
-    String email = emailController.text.trim();
+  UsersProvider usersProvider = UsersProvider();
+
+  AlumnoProfileInfoController alumnoProfileInfoController = Get.find();
+
+  AlumnoProfileUpdaterController () {
+    nameController.text = user.name ?? '';
+    lastNameController.text = user.lastname ?? '';
+    phoneController.text = user.phone ?? '';
+  }
+  void updateInfo(BuildContext context) async{
     String name = nameController.text;
     String lastname = lastNameController.text;
-    String phone = phoneController.text.trim();
-    String password = passwordController.text.trim();
-    String confirmPassword = confirmPasswordController.text.trim();
+    String phone = phoneController.text;
 
-    print('Email: ${email}');
-    print('Password: ${password}');
-
-    if (isValidForm(email, name, lastname, phone, password, confirmPassword)) {
+    if (isValidForm(name, lastname, phone)) {
       ProgressDialog progressDialog = ProgressDialog(context: context);
-      progressDialog.show(max: 100, msg: 'Registrando datos...');
-      User user = User(
-        email: email, 
+      progressDialog.show(max: 100, msg: 'Actualizando datos...');
+      User myUser = User(
+        id: user.id,
         name: name, 
-        lastname: lastname,
-        phone: phone,
-        password: password,
+        lastname: lastname, 
+        phone: phone, 
+        sessionToken: user.sessionToken
       );
 
-      Stream stream = await usersProvider.createWithImage(user, imageFile!);
+      if (imageFile == null) {
+        ResponseApi responseApi = await usersProvider.update(myUser);
+        print('Response Api Update: ${responseApi.data}');
+        Get.snackbar('Proceso terminado', responseApi.message ?? '');
+        progressDialog.close();
+        if (responseApi.success == true) {
+          GetStorage().write('user', responseApi.data);
+          alumnoProfileInfoController.user.value = User.fromJson(GetStorage().read('user') ?? {});
+        }
+      }
+      else {
+        Stream stream = await usersProvider.updateWithImage(myUser, imageFile!);
+        stream.listen((res) { 
+          progressDialog.close();
+          ResponseApi responseApi = ResponseApi.fromJson(json.decode(res));
+          Get.snackbar('Proceso terminado', responseApi.message ?? '');
+          print('Response Api Update: ${responseApi.data}');
+          if (responseApi.success == true) {
+            GetStorage().write('user', responseApi.data);
+            alumnoProfileInfoController.user.value = User.fromJson(GetStorage().read('user') ?? {});
+
+          }
+          else {
+            Get.snackbar('Registro fallido', responseApi.message ?? '');
+          }
+        });
+      }
+      
+      
+      /*Stream stream = await usersProvider.createWithImage(user, imageFile!);
       stream.listen((res) { 
         progressDialog.close();
         ResponseApi responseApi = ResponseApi.fromJson(json.decode(res));
@@ -55,24 +87,14 @@ class RegisterController extends GetxController {
         else {
           Get.snackbar('Registro fallido', responseApi.message ?? '');
         }
-      });
+      });*/
+
+
     }
     
   }
-  void goToHomePage() {
-    Get.offNamedUntil('/alumno/cursos/lista', (route) => false);
-  }
 
-  bool isValidForm(String email, String name, String lastName, String phone, String password, String confirmPassword) {
-      
-      if (email.isEmpty) {
-        Get.snackbar('Formulario no valido', 'Debes ingresar el email');
-        return false;
-      }
-      if (!GetUtils.isEmail(email)) {
-        Get.snackbar('Formulario no valido', 'El email no es valido');
-        return false;
-      }
+  bool isValidForm(String name, String lastName, String phone) {
       if (name.isEmpty) {
         Get.snackbar('Formulario no valido', 'Debes ingresar tu nombre');
         return false;
@@ -85,25 +107,10 @@ class RegisterController extends GetxController {
         Get.snackbar('Formulario no valido', 'Debes ingresar tu telefono');
         return false;
       }
-      if (password.isEmpty) {
-        Get.snackbar('Formulario no valido', 'Debes ingresar la contraseña');
-        return false;
-      }
-      if (confirmPassword.isEmpty) {
-        Get.snackbar('Formulario no valido', 'Debes confirmar la contraseña');
-        return false;
-      }
-      if (password != confirmPassword) {
-        Get.snackbar('Formulario no valido', 'Las contraseñas no coinciden');
-        return false;
-      }
-      if (imageFile == null) {
-        Get.snackbar('Formulario no valido', 'Debes seleccionar una imagen de perfil');
-        return false;
-      }
       return true;
-    }
-    Future selectImage(ImageSource imageSource) async {
+  }
+
+  Future selectImage(ImageSource imageSource) async {
       XFile? image = await picker.pickImage(source: imageSource);
       if (image != null) {
         imageFile = File(image.path);
@@ -147,8 +154,4 @@ class RegisterController extends GetxController {
         return alertDialog;
       },);
     }
-
-  void goToLoginPage() {
-    Get.toNamed('/login');
-  }
 }

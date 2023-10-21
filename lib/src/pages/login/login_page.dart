@@ -1,5 +1,4 @@
 import 'package:app_movil_fisi_unmsm/src/pages/login/login_controller.dart';
-import 'package:app_movil_fisi_unmsm/src/pages/pabellon/pabellon_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -70,9 +69,10 @@ class LoginPage extends StatelessWidget {
   Widget _textFieldEmail() {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 40),
-      child: const TextField(
+      child: TextField(
+        controller: con.emailController,
         keyboardType: TextInputType.emailAddress,
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
           hintText: 'Correo institucional',
           prefixIcon: Icon(Icons.email)
         ),
@@ -83,10 +83,11 @@ class LoginPage extends StatelessWidget {
   Widget _textFieldPassword() {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-      child: const TextField(
+      child: TextField(
+        controller: con.passwordController,
         keyboardType: TextInputType.text,
         obscureText: true,
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
           hintText: 'Contraseña',
           prefixIcon: Icon(Icons.lock)
         ),
@@ -99,9 +100,7 @@ class LoginPage extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 35),
       child: ElevatedButton(
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return PabellonPage();
-          }));
+          con.login();
         }, 
         style: ElevatedButton.styleFrom(
             padding:const EdgeInsets.symmetric(vertical: 20) ,
@@ -109,19 +108,16 @@ class LoginPage extends StatelessWidget {
               borderRadius: BorderRadius.circular(18)
             )
           ),
-        child: GestureDetector(
-          onTap: () => con.goToPabellonPage(),
-          child: const Text(
-            'Iniciar sesión',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w600,
-              fontSize: 17
+        child: const Text(
+          'Iniciar sesión',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.w600,
+            fontSize: 17
             ),
           ),
         )
-      ),
-    );
+      );
   }
   Widget _textNoTienesCuenta() {
     return Row(

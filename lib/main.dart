@@ -1,14 +1,24 @@
-import 'package:app_movil_fisi_unmsm/src/pages/asignacionAula/asignacionAula_page.dart';
+import 'package:app_movil_fisi_unmsm/src/models/user.dart';
+import 'package:app_movil_fisi_unmsm/src/pages/administrador/asignaciones/lista/administrador_asignaciones_lista_page.dart';
+import 'package:app_movil_fisi_unmsm/src/pages/alumno/cursos/lista/alumno_cursos_lista_page.dart';
+import 'package:app_movil_fisi_unmsm/src/pages/alumno/profile/info/alumno_profile_info_page.dart';
+import 'package:app_movil_fisi_unmsm/src/pages/alumno/profile/update/alumno_profile_update_page.dart';
+import 'package:app_movil_fisi_unmsm/src/pages/home/home_page.dart';
 import 'package:app_movil_fisi_unmsm/src/pages/login/login_page.dart';
-import 'package:app_movil_fisi_unmsm/src/pages/pabellon/pabellon_page.dart';
-import 'package:app_movil_fisi_unmsm/src/pages/piso/piso_page.dart';
+import 'package:app_movil_fisi_unmsm/src/pages/profesor/cursos/lista/profesor_cursos_lista_page.dart';
 import 'package:app_movil_fisi_unmsm/src/pages/register/register_page.dart';
+import 'package:app_movil_fisi_unmsm/src/pages/roles/roles_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
-void main() {
+User userSession = User.fromJson(GetStorage().read('user') ?? {});
+
+void main() async{
+  await GetStorage.init();
   runApp(const MyApp());
 }
+
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
@@ -17,23 +27,28 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Fisi Help',
-      initialRoute: '/',
+      initialRoute: userSession.id != null ? userSession.roles!.length > 1 ? '/roles' : '/alumno/cursos/lista' : '/',
       getPages: [
         GetPage(name: '/', page: () => LoginPage(),),
         GetPage(name: '/register', page: () => RegisterPage(),),
-        GetPage(name: '/pabellon', page: () => const PabellonPage(),),
-        GetPage(name: '/piso', page: () => const PisoPage(),),
-        GetPage(name: '/asignacionaula', page: () => AsignacionAulaPage(),)
+        GetPage(name: '/home', page: () => HomePage(),),
+        GetPage(name: '/roles', page: () => RolesPage(),),
+        GetPage(name: '/administrador/asignaciones/lista', page: () => AdministradorAsignacionesListaPage(),),
+        GetPage(name: '/profesor/cursos/lista', page: () => ProfesorCursosListaPage(),),
+        GetPage(name: '/alumno/cursos/lista', page: () => AlumnoCursosListaPage(),),
+        GetPage(name: '/alumno/profile/info', page: () => AlumnoProfileInfoPage(),),
+        GetPage(name: '/alumno/profile/update', page: () => AlumnoProfileUpdatePage(),),
       ],
       theme: ThemeData(
         primaryColor: const Color.fromRGBO(252, 147, 64, 1),

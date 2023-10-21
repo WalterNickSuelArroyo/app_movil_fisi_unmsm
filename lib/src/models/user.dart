@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:app_movil_fisi_unmsm/src/models/Rol.dart';
 
 User userFromJson(String str) => User.fromJson(json.decode(str));
 
@@ -12,6 +13,8 @@ class User {
     String? phone;
     String? image;
     String? password;
+    String? sessionToken;
+    List<Rol>? roles = [];
 
     User({
         this.id,
@@ -21,16 +24,20 @@ class User {
         this.phone,
         this.image,
         this.password,
+        this.sessionToken,
+        this.roles
     });
 
     factory User.fromJson(Map<String, dynamic> json) => User(
-        id: json["id"].toString(),
+        id: json["id"],
         email: json["email"],
         name: json["name"],
         lastname: json["lastname"],
         phone: json["phone"],
         image: json["image"],
         password: json["password"],
+        sessionToken: json["session_token"],
+        roles: json["roles"] == null ? [] : List<Rol>.from(json["roles"].map((model) => Rol.fromJson(model)))
     );
 
     Map<String, dynamic> toJson() => {
@@ -41,5 +48,7 @@ class User {
         "phone": phone,
         "image": image,
         "password": password,
+        "session_token": sessionToken,
+        "roles": roles
     };
 }
