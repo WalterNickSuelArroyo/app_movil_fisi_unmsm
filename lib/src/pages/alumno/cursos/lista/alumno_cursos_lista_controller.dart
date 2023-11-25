@@ -1,16 +1,25 @@
+import 'package:app_movil_fisi_unmsm/src/models/curso.dart';
+import 'package:app_movil_fisi_unmsm/src/providers/cursos_provider.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 
 class AlumnoCursosListaController extends GetxController {
+  final cursosProvider = CursosProvider();
+  var cursos = <Curso>[].obs;
 
-  var indexTab = 0.obs;
-
-  void changeTab (int index) {
-    indexTab.value = index;
+  @override
+  void onInit() {
+    super.onInit();
+    // Llamar a la función que carga las asignaciones al iniciar el controlador
+    getCursos();
   }
-  
-  void signOut() {
-    GetStorage().remove('user');
-    Get.offNamedUntil('/', (route) => false);
+
+  Future<void> getCursos() async {
+    try {
+      final result = await cursosProvider.getAll();
+      cursos.assignAll(result);
+      update();
+    } catch (error) {
+      print("Error al obtener los cursos: $error");
+    }
   }
 }

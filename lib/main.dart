@@ -1,10 +1,13 @@
 import 'package:app_movil_fisi_unmsm/src/models/user.dart';
 import 'package:app_movil_fisi_unmsm/src/pages/administrador/asignaciones/lista/administrador_asignaciones_lista_page.dart';
+import 'package:app_movil_fisi_unmsm/src/pages/administrador/home/administrador_home_page.dart';
 import 'package:app_movil_fisi_unmsm/src/pages/alumno/cursos/lista/alumno_cursos_lista_page.dart';
+import 'package:app_movil_fisi_unmsm/src/pages/alumno/home/alumno_home_page.dart';
 import 'package:app_movil_fisi_unmsm/src/pages/alumno/profile/info/alumno_profile_info_page.dart';
 import 'package:app_movil_fisi_unmsm/src/pages/alumno/profile/update/alumno_profile_update_page.dart';
+import 'package:app_movil_fisi_unmsm/src/pages/bienvenida/bienvenida_page.dart';
 import 'package:app_movil_fisi_unmsm/src/pages/home/home_page.dart';
-import 'package:app_movil_fisi_unmsm/src/pages/login/login_page.dart';
+//import 'package:app_movil_fisi_unmsm/src/pages/login/login_page.dart';
 import 'package:app_movil_fisi_unmsm/src/pages/profesor/cursos/lista/profesor_cursos_lista_page.dart';
 import 'package:app_movil_fisi_unmsm/src/pages/register/register_page.dart';
 import 'package:app_movil_fisi_unmsm/src/pages/roles/roles_page.dart';
@@ -38,14 +41,16 @@ class _MyAppState extends State<MyApp> {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Fisi Help',
-      initialRoute: userSession.id != null ? userSession.roles!.length > 1 ? '/roles' : '/alumno/cursos/lista' : '/',
+      initialRoute: userSession.id != null ? userSession.roles!.length > 1 ? '/roles' : '/alumno/home' : '/',
       getPages: [
-        GetPage(name: '/', page: () => LoginPage(),),
+        GetPage(name: '/', page: () => BienvenidaPage(),),
         GetPage(name: '/register', page: () => RegisterPage(),),
         GetPage(name: '/home', page: () => HomePage(),),
         GetPage(name: '/roles', page: () => RolesPage(),),
         GetPage(name: '/administrador/asignaciones/lista', page: () => AdministradorAsignacionesListaPage(),),
         GetPage(name: '/profesor/cursos/lista', page: () => ProfesorCursosListaPage(),),
+        GetPage(name: '/administrador/home', page: () => AdministradorHomePage(),),
+        GetPage(name: '/alumno/home', page: () => AlumnoHomePage(),),
         GetPage(name: '/alumno/cursos/lista', page: () => AlumnoCursosListaPage(),),
         GetPage(name: '/alumno/profile/info', page: () => AlumnoProfileInfoPage(),),
         GetPage(name: '/alumno/profile/update', page: () => AlumnoProfileUpdatePage(),),

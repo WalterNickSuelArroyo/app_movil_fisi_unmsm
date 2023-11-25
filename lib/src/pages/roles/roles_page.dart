@@ -43,16 +43,11 @@ class RolesPage extends StatelessWidget {
               placeholder: const AssetImage('assets/img/no-image.png'),
             ),             
           ),
-          Container(
-            margin: EdgeInsets.only(bottom: 20),
-            child: Text(
-              rol.name ?? '',
-              style: const TextStyle(
-                fontSize: 16,
-                color: Color.fromRGBO(12, 41, 71, 1),
-                fontWeight: FontWeight.w800
-              ),
-              
+          Text(
+            rol.name ?? '',
+            style: const TextStyle(
+              fontSize: 16,
+              color: Colors.black
             ),
           )
         ],

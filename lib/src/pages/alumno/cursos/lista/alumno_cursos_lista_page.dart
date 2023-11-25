@@ -1,58 +1,76 @@
-import 'package:app_movil_fisi_unmsm/src/pages/administrador/asignaciones/lista/administrador_asignaciones_lista_page.dart';
+
 import 'package:app_movil_fisi_unmsm/src/pages/alumno/cursos/lista/alumno_cursos_lista_controller.dart';
-import 'package:app_movil_fisi_unmsm/src/pages/alumno/profile/info/alumno_profile_info_page.dart';
-import 'package:app_movil_fisi_unmsm/src/pages/profesor/cursos/lista/profesor_cursos_lista_page.dart';
-import 'package:app_movil_fisi_unmsm/src/utils/custom_animated_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 // ignore: must_be_immutable
 class AlumnoCursosListaPage extends StatelessWidget {
-  AlumnoCursosListaController con = Get.put(AlumnoCursosListaController());
+  AlumnoCursosListaController con =
+      Get.put(AlumnoCursosListaController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: _bottomBar(),
-      body: Obx(() =>  IndexedStack(
-        index: con.indexTab.value,
-        children: [
-          AdministradorAsignacionesListaPage(),
-          ProfesorCursosListaPage(),
-          AlumnoProfileInfoPage(),
-        ],
-      ))
+      
+      body: Obx(
+        () => SingleChildScrollView(
+          
+          child: Column(
+            children: [
+              SizedBox(height: 100.0),
+              _tituloCurso(), // Espacio adicional al principio
+              ...List<Widget>.generate(
+                con.cursos.length,
+                (index) {
+
+                  final curso = con.cursos[index];
+
+                  return Container(
+                    width: 430,
+                    padding: EdgeInsets.all(15.0),
+                    margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 25),
+                    decoration: BoxDecoration(
+                      color: Color.fromRGBO(16, 54, 95, 1),
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Escuel: ${curso.escuela ?? ''}',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        Text(
+                          'Ciclo: ${curso.ciclo ?? ''}',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        Text(
+                          'Materia: ${curso.materia ?? ''}',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
-  Widget _bottomBar() {
-    return Obx(() =>  CustomAnimatedBottomBar(
-      containerHeight: 70,
-      backgroundColor: Colors.amber,
-      showElevation: true,
-      itemCornerRadius: 24,
-      curve: Curves.easeIn,
-      selectedIndex: con.indexTab.value,
-      onItemSelected: (index) => con.changeTab(index),
-      items: [
-        BottomNavyBarItem(
-          icon: Icon(Icons.apps), 
-          title: Text('Home'),
-          activeColor: Colors.white,
-          inactiveColor: Color.fromRGBO(20, 68, 119, 1)
-        ),
-        BottomNavyBarItem(
-          icon: Icon(Icons.list), 
-          title: Text('Mis pedidos'),
-          activeColor: Colors.white,
-          inactiveColor: Color.fromRGBO(20, 68, 119, 1)
-        ),
-        BottomNavyBarItem(
-          icon: Icon(Icons.person), 
-          title: Text('Perfil'),
-          activeColor: Colors.white,
-          inactiveColor: Color.fromRGBO(20, 68, 119, 1)
-        ),
-      ],
-    ));
+  Widget _tituloCurso() {
+    return Container(
+      child: Column(
+        children: const [
+          Text('Mis cursos',
+          style: TextStyle(
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
+            color: Color.fromRGBO(16, 54, 95, 1)
+          ),)
+        ],
+      ),
+    );
   }
+
 }
